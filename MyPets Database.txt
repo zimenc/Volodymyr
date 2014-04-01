@@ -1,0 +1,96 @@
+CREATE DATABASE MyPets;
+
+CREATE TABLE Pets
+(
+PetID int NOT NULL PRIMARY KEY,
+Type varchar(50) NOT NULL,
+Age int
+);
+
+CREATE TABLE Cats
+(
+PetID int, NOT NULL PRIMARY KEY,
+Name varchar(50) NOT NULL,
+Color varchar(50) NOT NULL
+);
+
+CREATE TABLE Humpsters
+(
+PetID int, NOT NULL PRIMARY KEY,
+Name varchar(50) NOT NULL,
+Color varchar(50) NOT NULL
+);
+
+INSERT INTO Pets (PetID, Kind, Age)
+VALUES (1213, 'cat', 10);
+INSERT INTO Pets (PetID, Kind, Age)
+VALUES (1381, 'humpster', 3);
+INSERT INTO Pets (PetID, Kind, Age)
+VALUES (1214, 'cat', 1);
+INSERT INTO Pets (PetID, Kind, Age)
+VALUES (1382, 'humpster', 1);
+INSERT INTO Pets (PetID, Kind, Age)
+VALUES (1215, 'cat', 2);
+INSERT INTO Pets (PetID, Kind, Age)
+VALUES (1383, 'humpster', 4);
+
+INSERT INTO Cats (PetID, Name, Color)
+VALUES (1213, 'Tomas', 'Black');
+INSERT INTO Cats (PetID, Name, Color)
+VALUES (1214, 'Loki', 'White');
+INSERT INTO Cats (PetID, Name, Color)
+VALUES (1215, 'Jhonny', 'Ginger');
+
+INSERT INTO Humpsters (PetID, Name, Color)
+VALUES (1381, 'Shuster', 'Brown');
+INSERT INTO Humpsters (PetID, Name, Color)
+VALUES (1382, 'Elvis', 'White');
+INSERT INTO Humpsters (PetID, Name, Color)
+VALUES (1383, 'Fluffy', 'Black);
+
+
+/*Find 1 year old pets. Output: PetID*/
+SELECT PetID
+From Pets
+WHERE Age=1;
+
+/*Find pets with name ending with "s". Output: name, color*/
+SELECT Name, Color
+From cats
+WHERE Name LIKE '%s'
+UNION
+SELECT Name, Color
+FROM Humpsters
+WHERE Name LIKE '%s';
+
+/*Find white-colored pets. Output: Name*/
+SELECT Name
+FROM Cats
+WHERE Color='white'
+UNION
+SELECT Name
+FROM Humpsters
+WHERE Color='white';
+
+/*Find the oldest cat. Output:name, color*/
+SELECT Name, Color
+From Pets JOIN
+CATS ON Pets.PetID=Cats.PetID
+WHERE Age=(Select MAX(age) From Pets);
+
+/*Find animals age from 2 to 4. Output: PetID, Kind*/
+SELECT PetID, Kind
+FROM Pets
+WHERE Age BETWEEN 2 AND 4;
+
+/*Find all the data about humpster Shuster. Output: PetID, age, color*/
+SELECT PetID, Age, Color
+FROM Pets JOIN
+Humpsters ON Pets.PetID=Humpsters.PetID
+WHERE Name='Shuster';
+
+/*Count all cats. Output: NumberOfCats*/
+SELECT COUNT(PetID) as NumberOfCats
+From Pets
+Where Kind='cats';
+
